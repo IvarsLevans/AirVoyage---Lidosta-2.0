@@ -18,7 +18,7 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="Arrivals&Departures.html">Arrivals & Departures</a></li>
-                    <li><a href="#">Booking</a></li>
+                    <li><a href="Booking.html">Booking</a></li>
                     <li><a href="ShoppingCart.html"><i class="fas fa-shopping-bag fa-lg"> </a></i></li>
                 </ul>
             </div>
@@ -26,102 +26,50 @@
     </section>
 
     <section class="main">
-        <div class="content_tab">
-            <table class="rix-arrivals-table">
+        <div id="Arrivals" class="tabcontent">
+            <table class="airport-table">
                 <thead>
-                    <tr>
-                        <th>
-                            <details class="selectAirport">
-                                <summary>Riga RIX</summary>
-                                <ul>
-                                    <li>Option 1</li>
-                                    <li>Option 2</li>
-                                    <li>Option 3</li>
-                                </ul>
-                            </details>
-                        </th>
-                        <th>
-                            <button class="arrivalsBtn">
-                                <summary>Arrivals</summary>
-                            </button>
-                        </th>
-                        <th>
-                            <button class="departuresBtn">
-                                <summary>Departures</summary>
-                            </button>
-                        </th>
-                        </th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thread>
-                <thread>
-                        <th>Arrival</th>
-                        <th>Scheduled time</th>
-                        <th>Estimated time</th>
-                        <th>Flight number</th>
-                        <th>From</th>
-                        <th>Sector</th>
-                        <th>Notes</th>
+                    <th>
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn">RIX <i
+                                    class="fas fa-caret-down fa-lg"></i></button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a href="index.html">index.htlml</a>
+                                <a href="#">Link 2</a>
+                                <a href="#">Link 3</a>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <button class="tablinks" onclick="openArrDep(event, 'Arrivals')"
+                                id="defaultOpen">Arrivals</button>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <button class="tablinks" onclick="openArrDep(event, 'Departures')">Departures</button>
+                        </div>
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </thead>
+
+                <!--TABLE HEADER-->
+                <thead>
+                    <th>Arrival</th>
+                    <th>Scheduled time</th>
+                    <th>Estimated time</th>
+                    <th>Flight number</th>
+                    <th>From</th>
+                    <th>Sector</th>
+                    <th>Notes</th>
                     </tr>
                 </thead>
+                <!--TABLE BODY-->
                 <tbody>
-                    <tr>
-                        <th>05.06.2021</th>
-                        <th>13:50</th>
-                        <th>13:51</th>
-                        <th>AY1073</th>
-                        <th>Helsinki/HEL</th>
-                        <th>E</th>
-                        <th>ARRIVED</th>
-                    </tr>
-                    <tr class="active-row">
-                        <th>05.06.2021</th>
-                        <th>14:45</th>
-                        <th>14:34</th>
-                        <th>BT696</th>
-                        <th>Nice/NCE</th>
-                        <th>E</th>
-                        <th>ARRIVED</th>
-                    </tr>
-                    <tr>
-                        <th>05.06.2021</th>
-                        <th>13:50</th>
-                        <th>13:51</th>
-                        <th>AY1073</th>
-                        <th>Helsinki/HEL</th>
-                        <th>E</th>
-                        <th>ARRIVED</th>
-                    </tr>
-                    <tr class="active-row">
-                        <th>05.06.2021</th>
-                        <th>14:45</th>
-                        <th>14:34</th>
-                        <th>BT696</th>
-                        <th>Nice/NCE</th>
-                        <th>E</th>
-                        <th>ARRIVED</th>
-                    </tr>
-                    <tr>
-                        <th>05.06.2021</th>
-                        <th>13:50</th>
-                        <th>13:51</th>
-                        <th>AY1073</th>
-                        <th>Helsinki/HEL</th>
-                        <th>E</th>
-                        <th>ARRIVED</th>
-                    </tr>
-                    <tr class="active-row">
-                        <th>05.06.2021</th>
-                        <th>14:45</th>
-                        <th>14:34</th>
-                        <th>BT696</th>
-                        <th>Nice/NCE</th>
-                        <th>E</th>
-                        <th>ARRIVED</th>
-                    </tr>
                     <tr>
                         <th>05.06.2021</th>
                         <th>13:50</th>
@@ -143,6 +91,131 @@
                 </tbody>
             </table>
         </div>
+
+        <div id="Departures" class="tabcontent">
+            <table class="airport-table">
+                <thead>
+                    <th>
+                        <div class="dropdown2">
+                            <button onclick="myFunction2()" class="dropbtn2">RIX <i
+                                    class="fas fa-caret-down fa-lg"></i></button>
+                            <div id="myDropdown2" class="dropdown-content2">
+                                <a href="index.html">index.htlml</a>
+                                <a href="#">Link 2</a>
+                                <a href="#">Link 3</a>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <button class="tablinks" onclick="openArrDep(event, 'Arrivals')"
+                                id="defaultOpen">Arrivals</button>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <button class="tablinks" onclick="openArrDep(event, 'Departures')">Departures</button>
+                        </div>
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </thead>
+
+                <!--TABLE HEADER-->
+                <thead>
+                    <th>Departure</th>
+                    <th>Scheduled time</th>
+                    <th>Estimated time</th>
+                    <th>Flight number</th>
+                    <th>From</th>
+                    <th>Sector</th>
+                    <th>Notes</th>
+                    </tr>
+                </thead>
+                <!--TABLE BODY-->
+                <tbody>
+                    <tr>
+                        <th>05.06.2021</th>
+                        <th>13:50</th>
+                        <th>13:51</th>
+                        <th>AY1073</th>
+                        <th>Helsinki/HEL</th>
+                        <th>E</th>
+                        <th>DEPARTED</th>
+                    </tr>
+                    <tr class="active-row">
+                        <th>05.06.2021</th>
+                        <th>14:45</th>
+                        <th>14:34</th>
+                        <th>BT696</th>
+                        <th>Nice/NCE</th>
+                        <th>E</th>
+                        <th>DEPARTED</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <script>
+            // Airport selector
+            /* When the user clicks on the button, toggle between hiding and showing the dropdown content */
+            function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            function myFunction2() {
+                document.getElementById("myDropdown2").classList.toggle("show2");
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function (event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function (event) {
+                if (!event.target.matches('.dropbtn2')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content2");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show2')) {
+                            openDropdown.classList.remove('show2');
+                        }
+                    }
+                }
+            }
+
+
+            // Arrivals & Departures
+            function openArrDep(evt, ArrDep) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(ArrDep).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+
+            // Get the element with id="defaultOpen" and click on it
+            document.getElementById("defaultOpen").click();
+        </script>
     </section class="main">
 
     <section class="footer">
@@ -165,7 +238,7 @@
                 </div>
                 <div>
                     <i class="fa fa-phone"></i>
-                    <p>+371 67872751</p>
+                    <p>+371 67872751, +371 25687728</p>
                 </div>
                 <div>
                     <i class="fa fa-envelope"></i>
