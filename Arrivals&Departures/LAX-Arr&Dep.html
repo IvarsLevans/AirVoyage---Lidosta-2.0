@@ -1,0 +1,279 @@
+<!-- Los Angeles International Airport -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/Arrivals&Departures.css">
+    <script src="https://kit.fontawesome.com/dc55c286ac.js" crossorigin="anonymous"></script>
+    <title>AirVoyage</title>
+</head>
+
+<body>
+    <section class="menu">
+        <header>
+            <h2 class="logo">AirVoyage</h2>
+            <section class="menu">
+                <header>
+                    <h2 class="logo">AirVoyage</h2>
+                    <div class="menu">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="Arrivals&Departures/BER-Arr&Dep.html">Arrivals & Departures</a></li>
+                            <li><a href="#">Booking</a></li>
+                            <li><a href="ShoppingCart.html"><i class="fas fa-shopping-bag fa-lg"> </a></i></li>
+                        </ul>
+                    </div>
+                </header>
+            </section>
+        </header>
+    </section>
+
+    <section class="main">
+        <div id="Arrivals" class="tabcontent">
+            <table class="airport-table">
+                <thead>
+                    <th>
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn">LAX <i
+                                    class="fas fa-caret-down fa-lg"></i></button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a href="BER-Arr&Dep.html">BER</a>
+                                <a href="CDG-Arr&Dep.html">CDG</a>
+                                <a href="JFK-Arr&Dep.html">JFK</a>
+                                <a href="RIX-Arr&Dep.html">RIX</a>
+                                <a href="SYD-Arr&Dep.html">SYD</a>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <button class="tablinks" onclick="openArrDep (event, 'Arrivals')"
+                                id="defaultOpen"><i class="fas fa-plane-arrival"></i> Arrivals</button>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <button class="tablinks" onclick="openArrDep(event, 'Departures')">
+                                <i class="fas fa-plane-departure"></i> Departures</button>
+                        </div>
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </thead>
+
+                <!--TABLE HEADER-->
+                <thead>
+                    <th>Arrival</th>
+                    <th>Scheduled time</th>
+                    <th>Estimated time</th>
+                    <th>Flight number</th>
+                    <th>From</th>
+                    <th>Sector</th>
+                    <th>Notes</th>
+                    </tr>
+                </thead>
+                <!--TABLE BODY-->
+                <tbody>
+                    <tr>
+                        <th>05.06.2021</th>
+                        <th>13:50</th>
+                        <th>13:51</th>
+                        <th>AY1073</th>
+                        <th>Helsinki/HEL</th>
+                        <th>E</th>
+                        <th>ARRIVED</th>
+                    </tr>
+                    <tr class="active-row">
+                        <th>05.06.2021</th>
+                        <th>14:45</th>
+                        <th>14:34</th>
+                        <th>BT696</th>
+                        <th>Nice/NCE</th>
+                        <th>E</th>
+                        <th>ARRIVED</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="Departures" class="tabcontent">
+            <table class="airport-table">
+                <thead>
+                    <th>
+                        <div class="dropdown2">
+                            <button onclick="myFunction2()" class="dropbtn2">LAX <i
+                                    class="fas fa-caret-down fa-lg"></i></button>
+                            <div id="myDropdown2" class="dropdown-content2">
+                                <a href="BER-Arr&Dep.html">BER</a>
+                                <a href="CDG-Arr&Dep.html">CDG</a>
+                                <a href="JFK-Arr&Dep.html">JFK</a>
+                                <a href="RIX-Arr&Dep.html">RIX</a>
+                                <a href="SYD-Arr&Dep.html">SYD</a>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <button class="tablinks" onclick="openArrDep (event, 'Arrivals')"
+                                id="defaultOpen"><i class="fas fa-plane-arrival"></i> Arrivals</button>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <button class="tablinks" onclick="openArrDep(event, 'Departures')">
+                                <i class="fas fa-plane-departure"></i> Departures</button>
+                        </div>
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </thead>
+
+                <!--TABLE HEADER-->
+                <thead>
+                    <th>Departure</th>
+                    <th>Scheduled time</th>
+                    <th>Estimated time</th>
+                    <th>Flight number</th>
+                    <th>From</th>
+                    <th>Sector</th>
+                    <th>Notes</th>
+                    </tr>
+                </thead>
+                <!--TABLE BODY-->
+                <tbody>
+                    <tr>
+                        <th>05.06.2021</th>
+                        <th>13:50</th>
+                        <th>13:51</th>
+                        <th>AY1073</th>
+                        <th>Helsinki/HEL</th>
+                        <th>E</th>
+                        <th>DEPARTED</th>
+                    </tr>
+                    <tr class="active-row">
+                        <th>05.06.2021</th>
+                        <th>14:45</th>
+                        <th>14:34</th>
+                        <th>BT696</th>
+                        <th>Nice/NCE</th>
+                        <th>E</th>
+                        <th>DEPARTED</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <script>
+            // Airport selector
+            /* When the user clicks on the button, toggle between hiding and showing the dropdown content */
+            function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            function myFunction2() {
+                document.getElementById("myDropdown2").classList.toggle("show2");
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function (event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function (event) {
+                if (!event.target.matches('.dropbtn2')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content2");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show2')) {
+                            openDropdown.classList.remove('show2');
+                        }
+                    }
+                }
+            }
+
+
+            // Arrivals & Departures
+            function openArrDep(evt, ArrDep) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(ArrDep).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+
+            // Get the element with id="defaultOpen" and click on it
+            document.getElementById("defaultOpen").click();
+        </script>
+    </section class="main">
+
+    <section class="footer">
+        <footer class="footer-distributed">
+            <div class="footer-left">
+                <h2>AirVoyage</h2>
+                <p class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="Arrivals&Departures.html">Arrivals & Departures</a>
+                    <a href="DelayMap.html">Delay Map</a>
+                    <a href="#">Booking</a>
+                </p>
+                <p class="footer-company-name">© 2021 AirVoyage</p>
+            </div>
+
+            <div class="footer-center">
+                <div>
+                    <i class="fa fa-map-marker"></i>
+                    <p>Krišjāņa Valdemāra iela 1C,<span>Centra rajons, Rīga, LV-1010</span></p>
+                </div>
+                <div>
+                    <i class="fa fa-phone"></i>
+                    <p>+371 67872751, +371 25687728</p>
+                </div>
+                <div>
+                    <i class="fa fa-envelope"></i>
+                    <p><a href="e-mail">support@airvoyage.com</a></p>
+                </div>
+            </div>
+            <div class="footer-right">
+                <p class="footer-company-about">
+                    <span>About the company</span>
+                    We bring together global air travel networks by connecting the worlds largest airports and airlines.
+                </p>
+                <div class="footer-icons">
+                    <a href="https://www.facebook.com"><i class="fa fa-facebook"></i></a>
+                    <a href="https://www.twitter.com"><i class="fa fa-twitter"></i></a>
+                    <a href="https://www.instagram.com"><i class="fa fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com"><i class="fa fa-linkedin"></i></a>
+                    <a href="https://www.github.com"><i class="fa fa-github"></i></a>
+                </div>
+            </div>
+        </footer>
+    </section>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
