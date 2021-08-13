@@ -37,10 +37,10 @@
             <table class="airport-table">
                 <thead>
                     <th>
-                        <div class="dropdown2">
-                            <button onclick="myFunction2()" class="dropbtn2">Airport1
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn">Airport 1
                                 <i class="fas fa-caret-down fa-lg"></i></button>
-                            <div id="myDropdown2" class="dropdown-content2">
+                            <div id="myDropdown" class="dropdown-content">
                                 <a href="Airport2.html">Airport 2</a>
                                 <a href="Airport3.html">Airport 3</a>
                                 <a href="Airport4.html">Airport 4</a>
@@ -49,7 +49,7 @@
                     </th>
                     <th>
                         <div>
-                            <button class="tablinks" onclick="openArrDep(event, 'Departures')"  id="defaultOpen">
+                            <button class="tablinks" onclick="openArrDep(event, 'Departures')" id="defaultOpen">
                                 <i class="fas fa-plane-departure"></i> Departures</button>
                         </div>
                     </th>
@@ -193,10 +193,10 @@
             <table class="airport-table">
                 <thead>
                     <th>
-                        <div class="dropdown">
-                            <button onclick="myFunction()" class="dropbtn">Airport 1
+                        <div class="dropdown2">
+                            <button onclick="myFunction2()" class="dropbtn2">Airport 1
                                 <i class="fas fa-caret-down fa-lg"></i></button>
-                            <div id="myDropdown" class="dropdown-content">
+                            <div id="myDropdown2" class="dropdown-content2">
                                 <a href="Airport2.html">Airport 2</a>
                                 <a href="Airport3.html">Airport 3</a>
                                 <a href="Airport4.html">Airport 4</a>
@@ -205,14 +205,14 @@
                     </th>
                     <th>
                         <div>
-                            <button class="tablinks" onclick="openArrDep(event, 'Departures')"  id="defaultOpen">
+                            <button class="tablinks" onclick="openArrDep(event, 'Departures')" id="defaultOpen">
                                 <i class="fas fa-plane-departure"></i> Departures</button>
                         </div>
                     </th>
                     <th>
                         <div>
-                            <button class="tablinks" onclick="openArrDep (event, 'Arrivals')"
-                                id="defaultOpen"><i class="fas fa-plane-arrival"></i> Arrivals</button>
+                            <button class="tablinks" onclick="openArrDep (event, 'Arrivals')">
+                                <i class="fas fa-plane-arrival"></i> Arrivals</button>
                         </div>
                     </th>
                     <th></th>
@@ -370,7 +370,7 @@
                 }
             }
 
-            // Arrivals & Departures
+            // Departures & Arrivals
             function openArrDep(evt, ArrDep) {
                 var i, tabcontent, tablinks;
                 tabcontent = document.getElementsByClassName("tabcontent");
@@ -396,7 +396,7 @@
                 <h2>AirVoyage</h2>
                 <p class="footer-links">
                     <a href="index.html">Home</a>
-                    <a href="Arrivals&Departures.html">Arrivals & Departures</a>
+                    <a href="../Departures&Arrivals/Airport1.html">Departures & Arrivals</a>
                     <a href="DelayMap.html">Delay Map</a>
                     <a href="#">Booking</a>
                 </p>
