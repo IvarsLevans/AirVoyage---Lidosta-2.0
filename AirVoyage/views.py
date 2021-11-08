@@ -1,16 +1,18 @@
 from flask import Blueprint, render_template, request, flash, jsonify
+import flask_login
 
 views = Blueprint("views", __name__)
 
 @views.route('/')
 def index():
-  return render_template("index.html")
+  return render_template("index.html", isLoggedIn = flask_login.current_user.is_authenticated)
 
 @views.route('templates/d&aAirport1.html')
 def Airport1():
   return render_template("d&aAirport1.html")
 
 @views.route('templates/d&aAirport2.html')
+@flask_login.login_required
 def Airport2():
   return render_template("d&aAirport2.html")
 

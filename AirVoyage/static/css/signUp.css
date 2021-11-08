@@ -13,7 +13,7 @@
 }
 
 header {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -57,7 +57,7 @@ header .menu a:hover{
 /* ############################ */
 
 .main {
-    margin-top: 275px;
+    margin-top: 160px;
     margin-bottom: 175px;
     margin-left: auto;
     margin-right: auto;

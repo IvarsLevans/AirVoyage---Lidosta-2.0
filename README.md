@@ -1,3 +1,4 @@
+Izveidoja: Ivars Levāns, Ivars Žeibe
 # AirVoyage Lidosta 2.0
 Starptautiska kompānijas izsludinājušas iepirkumu par jaunu starptautisku lidostu sistēmu. Klients vēlas, lai tas varētu pievienot lidostas, kuras vēlas strādāt kopējā tīklā un lidmašīnas, kas pārvietojas starp šīm lidostām. Lietotājiem ir jābūt iespējams rezervēt biļetes uz konkrēto reisu un saņemt par to biļeti.
 
@@ -11,3 +12,6 @@ Starptautiska kompānijas izsludinājušas iepirkumu par jaunu starptautisku lid
 *	meklēt reisu pēc datuma / izlidošanas vietas / galamērķa
 *	rezervēt reisu
 *	meklēt/labot/drukāt rezervāciju
+
+## Replit links:
+https://replit.com/@DP1IZeibe/AirVoyage-Lidosta-20
