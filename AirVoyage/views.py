@@ -3,6 +3,7 @@ from . import db
 from . import models
 import flask_login
 import re
+from . import dataManager
 
 views = Blueprint("views", __name__)
 
@@ -32,78 +33,29 @@ def data():
   # if not flask_login.current_user.is_authenticated:
   #   return 'permissionDenied'
   if request.method == 'POST':
-    if request.form.get('action') == 'edit':
-      if request.form.get('value') == '':
-        return ''
-      elif not re.search('[a-zA-Z0-9]', request.form.get('value')):
-        return ''
-      if request.form.get('table') == 'airports':
-        print("h")
-        try:
-          airport = models.Airport.query.filter_by(abbreviation = request.form.get('key')).first()
-          try:
-            setattr(airport, request.form.get('field'), request.form.get('value'))
-            db.session.commit()
-            print(getattr(airport, request.form.get('field')))
-            return 'success'
-          except:
-            print(getattr(airport, request.form.get('field')))
-            return getattr(airport, request.form.get('field'))
-          return ''
-        except:
-          pass
-        return ''
-      elif request.form.get('table') == 'airplanes':
-        try:
-          airplane = models.Airplane.query.filter_by(id = request.form.get('key')).first()
-          try:
-            setattr(airplane, request.form.get('field'), request.form.get('value'))
-            db.session.commit()
-            return 'success'
-          except:
-            return getattr(airplane, request.form.get('field'))
-          return ''
-        except:
-          pass
-        return ''
+    action = request.form.get('action')
+    tableName = request.form.get('table')
+    key = request.form.get('key')
+    fieldName = request.form.get('field')
+    value = request.form.get('value')
+    success = False
+    if action == 'edit':
+      success = dataManager.tryEditDatabase(tableName, key, fieldName, value)
+    elif action == 'add':
+      success = dataManager.tryAddToDatabase(tableName, value)
+    elif action == 'delete':
+      success = dataManager.tryRemoveFromDatabase(tableName, key)
+    if success:
+      return 'success'
+    else:
       return ''
-    elif request.form.get('action') == 'new':
-      if request.form.get('value') == '':
-        return ''
-      elif not re.search('[a-zA-Z0-9]', request.form.get('value')):
-        return ''
-      if request.form.get('table') == 'airports':
-        try:
-          db.session.add(models.Airport(abbreviation = request.form.get('value')))
-          db.session.commit()
-          return 'success'
-        except:
-          pass
-      elif request.form.get('table') == 'airplanes':
-        try:
-          db.session.add(models.Airplane(id = request.form.get('value')))
-          db.session.commit()
-          return 'success'
-        except:
-          print('error')
-          pass
-      return ''
-    elif request.form.get('action') == 'getData':
-      return str(models.Airport.query.all());
-    elif request.form.get('action') == 'delete':
-      airport = models.Airport.query.filter_by(abbreviation=request.form.get('key')).first()
-      if airport is None:
-        return 'failed'
-      else:
-        db.session.delete(airport)
-        db.session.commit()
-        return 'successful'
   else:
     return render_template(
       "data.html",
       isLoggedIn = flask_login.current_user.is_authenticated,
       airports = models.Airport.query.all(),
-      airplanes = models.Airplane.query.all())
+      airplanes = models.Airplane.query.all(),
+      flights = models.Flight.query.all())
 
 @views.route("generate_data")
 def generate_data():

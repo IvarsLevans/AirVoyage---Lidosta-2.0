@@ -26,8 +26,6 @@ class Airplane(db.Model):
   flights = db.relationship("Flight")
   def __repr__(self):
     return f'Airplane {self.id}'
-  def __unicode__(self):
-    return "[%s(%s)]" % (self.__class__.__name__, ', '.join('%s=%s' % (k, self.__dict__[k]) for k in sorted(self.__dict__) if '_sa_' != k[:4]))
 
 class Flight(db.Model):
   id = db.Column(db.Integer, primary_key=True)

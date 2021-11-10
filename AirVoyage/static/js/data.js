@@ -1,24 +1,28 @@
-document.getElementById("airports").addEventListener("click", (e) => {
-  addDelete(e)
-})
-document.getElementById("airplanes").addEventListener("click", (e) => {
-  addDelete(e)
-})
+// document.getElementById("airports").addEventListener("click", (e) => {
+//   addDelete(e)
+// })
+// document.getElementById("airplanes").addEventListener("click", (e) => {
+//   addDelete(e)
+// })
+tables = [document.getElementById("airports"), document.getElementById("airplanes"), document.getElementById("flights")]
+for (let i = 0; i < tables.length; i++){
+  tables[i].addEventListener("click", (e) => {addDelete(e)});
+}
 function addDelete(e){
   button = e.target;
   if(button.classList.contains('delete')) {
     row = e.target.parentElement.parentElement
-    key = row.getElementsByClassName('key')[0].textContent;
+    key = row.getElementsByClassName('key')[0].getAttribute('key');
 
     url = '/data';
     var request = new XMLHttpRequest();
     request.open('POST', url, true);
     request.onload = function() {
-      if(request.responseText === "successful"){
-        row.parentElement.removeChild(row);
-      }
-      else if(request.responseText === "permissionDenied"){
+      if(request.responseText === "permissionDenied"){
         document.location.href = '../'
+      }
+      else{
+        row.parentElement.removeChild(row);
       }
     };
 
@@ -27,6 +31,7 @@ function addDelete(e){
     };
     formData = new FormData();
     formData.append('action', 'delete');
+    formData.append('table', row.parentElement.parentElement.id);
     formData.append('key', key);
     request.send(formData);
   }
@@ -40,23 +45,7 @@ let editedAirportsAbrriviations = '';
 function doubleClick(node) {
   if(node.classList.contains('editable')) {
     node.ondblclick=function() {
-      // airportAbbreviation = node.parentElement.getElementsByClassName('key')[0].textContent;
-      // if(!(airportAbbreviation in editedAirportsAbrriviations.split(' '))){
-      //   editedAirportsAbrriviations += ' ' + airportAbbreviation;
-      //   values = ''
-      //   for(let cell of node.parentElement.cells){
-      //     values += cell.textContent + ',';
-      //   }
-      //   editedFields.append(airportAbbreviation, values);
-      //   console.log(editedFields.get(airportAbbreviation))
-      // }
-      // else{
-      //   values = ''
-      //   for(let cell of node.parentElement.cells){
-      //     values += cell.textContent + ',';
-      //   }
-      //   editedFields[editedAirportsAbrriviations] = values();
-      // }
+
       var val=this.innerHTML;
       var input=document.createElement("input");
       input.value=val;
@@ -87,7 +76,7 @@ function changeField(node, table, key, field, value){
   var request = new XMLHttpRequest();
   request.open('POST', url, true);
   request.onload = function() {
-    if(request.responseText == ''){
+    if(request.responseText != 'success'){
       node.innerHTML = 'error'
       node.style.color = "red";
     }
@@ -103,9 +92,8 @@ function changeField(node, table, key, field, value){
     // request failed
   };
   formData = new FormData();
-  console.log(table, key, field, value)
   if(key == '' && node.classList.contains('key')){
-    formData.append('action', 'new');
+    formData.append('action', 'add');
   }
   else{
     formData.append('action', 'edit');
@@ -117,11 +105,16 @@ function changeField(node, table, key, field, value){
   request.send(formData);
 }
 
-document.getElementsByClassName("add")[0].addEventListener("click", (e) => {addAddButton(e)});
-document.getElementsByClassName("add")[1].addEventListener("click", (e) => {addAddButton(e)});
+// document.getElementsByClassName("add")[0].addEventListener("click", (e) => {addAddButton(e)});
+// document.getElementsByClassName("add")[1].addEventListener("click", (e) => {addAddButton(e)});
+addButtons = document.getElementsByClassName("add");
+for (let i = 0; i < addButtons.length; i++){
+  addButtons[i].addEventListener("click", (e) => {addAddButton(e)});
+}
 function addAddButton(e) {
   tbody = e.target.parentElement.parentElement.parentElement;
-  let element = tbody.children[1].cloneNode(true);
+  // let element = tbody.children[1].cloneNode(true);
+  let element = createRow(e.target.parentElement.parentElement.parentElement.parentElement.id)
   element.setAttribute('value', '');
   var children = Array.from(element.children);
   for(let i = 0; i < children.length - 1; i++){
@@ -134,4 +127,16 @@ function addAddButton(e) {
   var clickEvent = document.createEvent ('MouseEvents');
   clickEvent.initEvent ('dblclick', true, true);
   targLink.dispatchEvent (clickEvent);
+}
+function createRow(tableId) {
+  if (tableId == 'airports'){
+    return document.getElementById('exampleRows').children[0].children[0].cloneNode(true);
+  }
+  else if (tableId == 'airplanes'){
+    return document.getElementById('exampleRows').children[0].children[1].cloneNode(true);
+  }
+  else if (tableId == 'flights'){
+    return document.getElementById('exampleRows').children[0].children[2].cloneNode(true);
+  }
+  return;
 }
