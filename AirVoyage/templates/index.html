@@ -11,9 +11,7 @@
 </head>
 
 <body>
-    <section class="menu">
-        {% include "header.html" %}
-    </section>
+    {% include "header.html" %}
     
     <section class="showcase">
         <video src="static/img/GlobalFlights.mp4" muted loop autoplay></video>
@@ -57,47 +55,7 @@
         </div>
     </section>
 
-    <section class="footer">
-        <footer class="footer-distributed">
-            <div class="footer-left">
-                <h2>AirVoyage</h2>
-                <p class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="Arrivals&Departures.html">Arrivals & Departures</a>
-                    <a href="#">Booking</a>
-                </p>
-                <p class="footer-company-name">© 2021 AirVoyage</p>
-            </div>
-
-            <div class="footer-center">
-                <div>
-                    <i class="fa fa-map-marker"></i>
-                    <p>Krišjāņa Valdemāra iela 1C,<span>Centra rajons, Rīga, LV-1010</span></p>
-                </div>
-                <div>
-                    <i class="fa fa-phone"></i>
-                    <p>+371 67872751</p>
-                </div>
-                <div>
-                    <i class="fa fa-envelope"></i>
-                    <p><a href="e-mail">support@airvoyage.com</a></p>
-                </div>
-            </div>
-            <div class="footer-right">
-                <p class="footer-company-about">
-                    <span>About the company</span>
-                    We bring together global air travel networks by connecting the worlds largest airports and airlines.
-                </p>
-                <div class="footer-icons">
-                    <a href="https://www.facebook.com"><i class="fa fa-facebook"></i></a>
-                    <a href="https://www.twitter.com"><i class="fa fa-twitter"></i></a>
-                    <a href="https://www.instagram.com"><i class="fa fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com"><i class="fa fa-linkedin"></i></a>
-                    <a href="https://www.github.com"><i class="fa fa-github"></i></a>
-                </div>
-            </div>
-        </footer>
-    </section>
+    {% include "footer.html" %}
 </body>
 
 </html>

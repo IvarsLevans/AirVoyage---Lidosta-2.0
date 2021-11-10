@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/signUp.css">
+    <script src="https://kit.fontawesome.com/dc55c286ac.js" crossorigin="anonymous"></script>
+
+    <title>AirVoyage</title>
+</head>
+
+<body>
+  {% include "header.html" %}
+
+  <h1>Manage airports</h1>
+  <table id="airports">
+    <tr>
+      <th>Name</th>
+      <th>Abbreviation</th>
+      <th>Address</th>
+      <th>Airplanes</th>
+    </tr>
+    {% for airport in airports %}
+    <tr">
+      <td class="editable" value='name'>{{ airport.name }}</td>
+      <td class='key editable' value='abbreviation' key='{{airport.abbreviation}}'>{{ airport.abbreviation }}</td>
+      <td class="editable" value='address'>{{ airport.address }}</td>
+      <td class='' value='airplanes' >{{ airport.airplanes }}</td>
+      <td><button class='delete'>Del</button> </td>
+    </tr>
+    {% endfor %}
+  <td><button class='add'>Add</button> </td>
+  </table>
+
+  <h1>Manage airplanes</h1>
+  <table id="airplanes">
+    <tr>
+      <th>id</th>
+      <th>model</th>
+      <th>yearOfManufacture</th>
+      <th>seats</th>
+      <th>airportId</th>
+    </tr>
+    {% for airplane in airplanes %}
+    <tr">
+      <td class="key editable" value='id' key='{{airplane.id}}'>{{ airplane.id }}</td>
+      <td class='editable' value='model' >{{ airplane.model }}</td>
+      <td class="editable" value='yearOfManufacture'>{{ airplane.yearOfManufacture }}</td>
+      <td class='editable' value='model' >{{ airplane.seats }}</td>
+      <td class='editable' value='airportId' >{{ airplane.airportId }}</td>
+      <td><button class='delete'>Del</button> </td>
+    </tr>
+    {% endfor %}
+  <td><button class='add'>Add</button> </td>
+  </table>
+  
+
+
+  {% include "footer.html" %}
+
+  <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/data.js') }}"></script>
+</body>
+
+</html>

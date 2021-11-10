@@ -8,6 +8,8 @@ auth = Blueprint("auth", __name__)
 
 @auth.route("templates/login.html", methods=["GET", "POST"])
 def login():
+  if current_user.is_authenticated:
+     return redirect(url_for('views.index'))
   if request.method == 'POST':
     email = request.form.get('email')
     password = request.form.get('psw')
@@ -24,6 +26,8 @@ def log_out():
 
 @auth.route("templates/signUp.html", methods=["GET", "POST"])
 def signUp():
+  if current_user.is_authenticated:
+     return redirect(url_for('views.index'))
   print(User.query.all())
   if request.method == "POST":
     email = request.form.get('email')
@@ -48,7 +52,3 @@ def signUp():
         flash('Account created!', category='success')
         return redirect(url_for('views.index'))
   return render_template("signUp.html")
-
-@auth.route("data")
-def data():
-  return str(User.query.all())
