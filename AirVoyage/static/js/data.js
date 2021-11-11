@@ -35,8 +35,41 @@ function addDelete(e){
     formData.append('key', key);
     request.send(formData);
   }
-  else if (button.classList.contains('apply')){
+  else if (button.classList.contains('finish')){
+    //table, key, fieldName, value  
+    
+    row = e.target.parentElement.parentElement
+    key = row.getElementsByClassName('key')[0].getAttribute('key');
 
+    url = '/data';
+    var request = new XMLHttpRequest();
+    request.open('POST', url, true);
+    request.onload = function() {
+      if(request.responseText == 'success'){
+        if(button.textContent == 'Enable'){
+          button.textContent = 'Disable';
+        }
+        else{
+          button.textContent = 'Enable';
+        }
+      }
+    };
+
+    request.onerror = function() {
+      // request failed
+    };
+    formData = new FormData();
+    formData.append('action', 'edit');
+    formData.append('table', row.parentElement.parentElement.id);
+    formData.append('key', key);
+    formData.append('field', button.parentElement.getAttribute('value'));
+    if(button.textContent == 'Enable'){
+      formData.append('value', 'false');
+    }
+    else{
+      formData.append('value', 'true');
+    }
+    request.send(formData);
   }
 }
 

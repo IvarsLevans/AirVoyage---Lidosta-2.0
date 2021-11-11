@@ -108,7 +108,9 @@ header .menu a:hover{
     margin-right: auto;
     background-color: #fdfdfd;
 }
-
+.form label{
+  display: block;
+}
 .container {
     padding: 16px;
 }

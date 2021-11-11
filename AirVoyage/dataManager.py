@@ -1,10 +1,14 @@
 import re
 from . import models
 from . import db
+import datetime
 
+booleanFields = ['isFinished']
+dateFields = ['departureDate', 'arrivalDate']
 def tryEditDatabase(table, key, fieldName, value):
-  if not checkValue(value):
-    return False
+  if fieldName not in booleanFields:
+    if not checkValue(value):
+      return False
   modelType = getModelType(table)
   if modelType is None:
     return False
@@ -13,7 +17,18 @@ def tryEditDatabase(table, key, fieldName, value):
     return False
   try:
     print(row, fieldName, value)
-    setattr(row, fieldName, value)
+    if fieldName in booleanFields:
+      if value == 'true':
+        setattr(row, fieldName, True)
+      elif value == 'false':
+        setattr(row, fieldName, False)
+      else:
+        return False
+    elif fieldName in dateFields:
+      numbers = value.split('-')
+      setattr(row, fieldName, datetime.datetime(int(numbers[0]),int(numbers[1]),int(numbers[2]),int(numbers[3]),int(numbers[4])))
+    else:
+      setattr(row, fieldName, value)
     db.session.commit()
   except:
     return False
@@ -70,6 +85,12 @@ def checkValue(value):
   else:
     return True
 
+def isAdmin(user):
+  admins = ['admin@admin.admin']
+  if user.is_authenticated and user.email in admins:
+    return True
+  else:
+    return False
 # if request.form.get('action') == 'edit':
 #       if request.form.get('value') == '':
 #         return ''
