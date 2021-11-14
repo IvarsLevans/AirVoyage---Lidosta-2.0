@@ -1,0 +1,20 @@
+table {
+  margin-left: 10px;
+  border-collapse: collapse;
+}
+table, td, th {
+  border: 1px solid black;
+}
+button{
+  width: 150px;
+  margin-left: 10px;
+  display: block;
+}
+@media print{
+  body * {
+    visibility: hidden;
+  }
+  .printable, .printable *{
+    visibility: visible;
+  }
+}

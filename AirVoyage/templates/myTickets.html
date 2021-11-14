@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/signUp.css">
+    <link rel="stylesheet" href="../static/css/myTickets.css">
     <script src="https://kit.fontawesome.com/dc55c286ac.js" crossorigin="anonymous"></script>
 
     <title>AirVoyage</title>
@@ -13,14 +14,40 @@
 
 <body>
   {% include "header.html" %}
-  hello
   {% for ticket in user.tickets %}
-    ticket.id
+  <div>
+    <h1>Ticket Rez. Nr. {{"{:09d}".format(ticket.id)}}</h1>
+    <table id="{{ticket.id}}">
+      <tr>
+        <td>{{user.name}} {{user.surname}}</td>
+        <td>Rez. Nr. {{"{:09d}".format(ticket.id)}}</td>
+      </tr>
+      <tr>
+        <td>Lidojums</td>
+        <td>{{ticket.flight.airportFrom.address}} ({{ticket.flight.airportFrom.abbreviation}}) - {{ticket.flight.airportTo.address}} ({{ticket.flight.airportTo.abbreviation}})</td>
+      </tr>
+      <tr>
+        <td>Izlidošana</td>
+        <td>{{ticket.flight.departureDate.strftime('%d.%m.%Y %H:%M')}}</td>
+      </tr>
+      <tr>
+        <td>Ielidošana</td>
+        <td>{{ticket.flight.arrivalDate}}</td>
+      </tr>
+      <tr>
+        <td>Lidmašīna</td>
+        <td>{{ticket.flight.airplane.model}}</td>
+      </tr>
+    </table>
+    <button class='print'>Print</button>
+    <button class='cancel'>Cancel flight</button>
+  </div>
   {% endfor %}
 
   {% include "footer.html" %}
 
   <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/myTickets.js') }}"></script>
 </body>
 
 </html>

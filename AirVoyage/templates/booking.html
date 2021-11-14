@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/signUp.css">
+    <link rel="stylesheet" href="../static/css/booking.css">
     <script src="https://kit.fontawesome.com/dc55c286ac.js" crossorigin="anonymous"></script>
 
     <title>AirVoyage</title>
@@ -13,38 +14,54 @@
 
 <body>
   {% include "header.html" %}
-  <div>
+  <form id="filters">
     <div>
-      Departure date:
-      <br>
-      <input type="date"></input>
-      <input type="time"></input>
+      <label for="dateFrom">Date from:</label>
+      <input type="date" id="dateFrom" name="dateFrom"></input>
+      <input type="time" id="timeFrom" name="timeFrom"></input>
+      <label for="dateTo">Date to:</label>
+      <input type="date" id="dateTo" name="dateTo"></input>
+      <input type="time" id="timeTo" name="timeTo"></input>
     </div>
     <div>
-      Arrival date:
-      <br>
-      <input type="date"></input>
-      <input type="time"></input>
+      <label for="from">From:</label>
+      <select id="from" name="from">
+        <option value="any">Any</option>
+        {% for airport in airports %}
+          <option value="{{airport.abbreviation}}">{{airport.address}}</option>
+        {% endfor %}
+      </select>
+      <label for="to">To:</label>
+      <select id="to" name="to">
+        <option value="any">Any</option>
+        {% for airport in airports %}
+          <option value="{{airport.abbreviation}}">{{airport.address}}</option>
+        {% endfor %}
+      </select>
     </div>
-    <label for="from">From:</label>
-    <select id="from" name="from">
-      {% for airport in airports %}
-        <option value="{{airport.abbreviation}}">{{airport.address}}</option>
-      {% endfor %}
-    </select>
-    <label for="to">To:</label>
-    <select id="to" name="to">
-      {% for airport in airports %}
-        <option value="{{airport.abbreviation}}">{{airport.address}}</option>
-      {% endfor %}
-    </select>
-    <button type="button">Apply</button>
-  </div>
-  
-  {% include "footer.html" %}
-  <script>
-</script>
-    <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+    <button type="submit">Apply</button>
+    
+  </form>
+  <table id="flights">
+    <tr>
+      <th>From</th>
+      <th>To</th>
+      <th>Departure date</th>
+      <th>Arrival</th>
+      <th>Airplane</th>
+    </tr>
+    {% for flight in flights %}
+    <tr value="{{flight.id}}">
+      <td>{{flight.airportFrom.address}}</td>
+      <td>{{flight.airportTo.address}}</td>
+      <td>{{flight.departureDate}}</td>
+      <td>{{flight.arrivalDate}}</td>
+      <td><button class="book">Book</button></td>
+    </tr>
+    {% endfor %}
+  </table>
+  <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/booking.js') }}"></script>
 </body>
 
 </html>

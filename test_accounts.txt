@@ -2,3 +2,14 @@ John Smith
 johnsmith@gmail.com
 password123
 password123
+
+//has admin privileges
+Admin Admin
+admin@admin.admin
+admin123
+admin123
+
+Client Client
+client@client.client
+client123
+client123

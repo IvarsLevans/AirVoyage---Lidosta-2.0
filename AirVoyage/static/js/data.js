@@ -1,9 +1,3 @@
-// document.getElementById("airports").addEventListener("click", (e) => {
-//   addDelete(e)
-// })
-// document.getElementById("airplanes").addEventListener("click", (e) => {
-//   addDelete(e)
-// })
 tables = [document.getElementById("airports"), document.getElementById("airplanes"), document.getElementById("flights")]
 for (let i = 0; i < tables.length; i++){
   tables[i].addEventListener("click", (e) => {addDelete(e)});

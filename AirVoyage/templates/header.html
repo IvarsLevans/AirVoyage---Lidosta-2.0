@@ -4,12 +4,13 @@
     <ul>
       <li><a href="/">Home</a></li>
       {% if isAdmin %}
+      <li><a href="../statistics">Statistics</a></li>
       <li><a href="../data">Manage data</a></li>
       {% endif %}
       <li><a href="../templates/d&aAirport1.html">Arrivals & Departures</a></li>
       {% if isLoggedIn %}
       <li><a href="../booking">Booking</a></li>
-      <li><a href="../templates/myFlights.html">My flights</a></li>
+      <li><a href="../myTickets">My tickets</a></li>
       <li><a href="../templates/log_out.html">Log out</a></li>
       <li><a href="../templates/shoppingCart.html"><i class="fas fa-shopping-bag fa-lg"> </a></i></li>
       {% else %}

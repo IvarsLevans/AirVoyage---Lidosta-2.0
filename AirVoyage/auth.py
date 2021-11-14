@@ -51,7 +51,7 @@ def signUp():
     elif len(surname) < 2:
       flash('Surname must be greater than 1 characters.', category='error')
     elif ' ' in name or ' ' in surname:
-      flash('Name and surname can not contain wihtespaces.', category='error')
+      flash('Name and surname can not contain whitespaces.', category='error')
     else:
       # add user to database
       new_user = User(name=name, surname=surname, email=email, psw=generate_password_hash(

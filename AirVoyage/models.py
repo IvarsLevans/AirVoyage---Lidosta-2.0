@@ -17,6 +17,8 @@ class Airport(db.Model):
   abbreviation = db.Column(db.String(3), primary_key=True)
   address = db.Column(db.String(150))
   airplanes = db.relationship("Airplane")
+  incomingFlights = db.relationship("Flight", primaryjoin="and_(Airport.abbreviation==Flight.airportToId, Flight.isFinished==False)", backref='airportTo')
+  outgoingFlights = db.relationship("Flight", primaryjoin="and_(Airport.abbreviation==Flight.airportFromId, Flight.isFinished==False)", backref='airportFrom')
   def __repr__(self):
     return f'Airport {self.abbreviation}'
 
@@ -35,8 +37,8 @@ class Flight(db.Model):
   number = db.Column(db.Integer)
   departureDate = db.Column(db.DateTime)
   arrivalDate = db.Column(db.DateTime)
-  airportFrom = db.Column(db.String(150))
-  airportTo = db.Column(db.String(150))
+  airportFromId = db.Column(db.String(150), db.ForeignKey('airport.abbreviation'))
+  airportToId = db.Column(db.String(150), db.ForeignKey('airport.abbreviation'))
   airplaneId = db.Column(db.Integer, db.ForeignKey('airplane.id'))
   tickets = db.relationship("Ticket", backref='flight')
   isFinished = db.Column(db.Boolean, default=False)

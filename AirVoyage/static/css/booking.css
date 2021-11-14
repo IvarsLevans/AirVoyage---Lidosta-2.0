@@ -1,0 +1,14 @@
+form{
+  display: flex;
+  align-items: center;
+}
+form button{
+  width: 150px;
+  margin-left: 10px;
+  display: block;
+}
+form div{
+  padding: 5px;
+  margin: 5px;
+  display: block;
+}
