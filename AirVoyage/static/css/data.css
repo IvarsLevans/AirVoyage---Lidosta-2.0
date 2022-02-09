@@ -1,0 +1,26 @@
+.addRow{
+  width: 200px;
+}
+.editTemplate{
+  display: none;
+}
+
+table, th, td{
+  padding: 10px;
+}
+table{
+  width: 100%;
+}
+h1{
+  text-align: center;
+}
+
+.error{
+  background-color: lightcoral;
+}
+
+select, input,select:focus, input:focus{
+  outline: none;
+    border-width: 1px;
+  border-radius: 5px;
+}

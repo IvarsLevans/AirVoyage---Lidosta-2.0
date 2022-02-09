@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/signUp.css">
     <link rel="stylesheet" href="../static/css/booking.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
     <script src="https://kit.fontawesome.com/dc55c286ac.js" crossorigin="anonymous"></script>
 
     <title>AirVoyage</title>
@@ -26,16 +27,16 @@
     <div>
       <label for="from">From:</label>
       <select id="from" name="from">
-        <option value="any">Any</option>
+        <option value="">Any</option>
         {% for airport in airports %}
-          <option value="{{airport.abbreviation}}">{{airport.address}}</option>
+          <option value="{{airport.address}}">{{airport.address}}</option>
         {% endfor %}
       </select>
       <label for="to">To:</label>
       <select id="to" name="to">
-        <option value="any">Any</option>
+        <option value="">Any</option>
         {% for airport in airports %}
-          <option value="{{airport.abbreviation}}">{{airport.address}}</option>
+          <option value="{{airport.address}}">{{airport.address}}</option>
         {% endfor %}
       </select>
     </div>
@@ -48,18 +49,25 @@
       <th>To</th>
       <th>Departure date</th>
       <th>Arrival</th>
-      <th>Airplane</th>
     </tr>
     {% for flight in flights %}
-    <tr value="{{flight.id}}">
-      <td>{{flight.airportFrom.address}}</td>
-      <td>{{flight.airportTo.address}}</td>
-      <td>{{flight.departureDate}}</td>
-      <td>{{flight.arrivalDate}}</td>
-      <td><button class="book">Book</button></td>
-    </tr>
+      {% if not flight.isFinished %}
+        <tr value="{{flight.id}}">
+          <td>{{flight.airportFrom.address}}</td>
+          <td>{{flight.airportTo.address}}</td>
+          <td>{{flight.departureDate.strftime('%Y.%m.%d %H:%M')}}</td>
+          <td>{{flight.arrivalDate.strftime('%Y.%m.%d %H:%M')}}</td>
+          {% if flight.id in bookedFlightIds %}
+          <td>Booked</td>
+          {% else %}
+          <td><button class="book">Book</button></td>
+          {% endif %}
+        </tr>
+      {% endif %}
     {% endfor %}
   </table>
+  
+  {% include "footer.html" %}
   <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
   <script src="{{ url_for('static', filename='js/booking.js') }}"></script>
 </body>

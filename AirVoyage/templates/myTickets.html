@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/signUp.css">
     <link rel="stylesheet" href="../static/css/myTickets.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
     <script src="https://kit.fontawesome.com/dc55c286ac.js" crossorigin="anonymous"></script>
 
     <title>AirVoyage</title>
@@ -14,9 +15,13 @@
 
 <body>
   {% include "header.html" %}
-  {% for ticket in user.tickets %}
-  <div>
-    <h1>Ticket Rez. Nr. {{"{:09d}".format(ticket.id)}}</h1>
+   <select id="order" name="order">
+      <option value="newest">Newest</option>
+      <option value="oldest">Oldest</option>
+    </select>
+  {% for ticket in tickets %}
+  <div class="ticket-container">
+    <h1>Ticket Nr. {{"{:09d}".format(ticket.id)}}</h1>
     <table id="{{ticket.id}}">
       <tr>
         <td>{{user.name}} {{user.surname}}</td>
@@ -43,7 +48,6 @@
     <button class='cancel'>Cancel flight</button>
   </div>
   {% endfor %}
-
   {% include "footer.html" %}
 
   <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>

@@ -12,3 +12,16 @@ form div{
   margin: 5px;
   display: block;
 }
+th{
+  text-decoration: none;
+}
+th:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+tr{
+  height: 64px;
+}
+table, td{
+  padding: 10px;
+}

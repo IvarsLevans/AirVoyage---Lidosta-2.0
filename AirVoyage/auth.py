@@ -3,11 +3,17 @@ from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
-from . import dataManager
 
 auth = Blueprint("auth", __name__)
 
-@auth.route("templates/login.html", methods=["GET", "POST"])
+def isAdmin(user):
+  admins = ['admin@admin.admin']
+  if user.is_authenticated and user.email in admins:
+    return True
+  else:
+    return False
+
+@auth.route("login", methods=["GET", "POST"])
 def login():
   if current_user.is_authenticated:
      return redirect(url_for('views.index'))
@@ -18,16 +24,17 @@ def login():
     if(user is not None and check_password_hash(user.psw, password)):
       login_user(user)
       return redirect(url_for('views.index'))
+    flash('Incorrect email or password.', category='error')
   return render_template ("login.html",
     isLoggedIn = current_user.is_authenticated,
-    isAdmin = dataManager.isAdmin(current_user))
+    isAdmin = isAdmin(current_user))
 
-@auth.route("templates/log_out.html")
+@auth.route("log_out")
 def log_out():
   logout_user()
   return redirect(url_for('views.index'))
 
-@auth.route("templates/signUp.html", methods=["GET", "POST"])
+@auth.route("signUp", methods=["GET", "POST"])
 def signUp():
   if current_user.is_authenticated:
      return redirect(url_for('views.index'))
@@ -40,8 +47,8 @@ def signUp():
 
     if len(email) < 4:
       flash('Email must be greater than 3 characters.', category='error')
-    elif len(psw) < 7:
-      flash('Password must be at least 7 characters.', category='error')
+    elif len(psw) < 8:
+      flash('Password must be at least 8 characters.', category='error')
     elif pswRepeat != psw:
       flash('Passwords don\'t match.', category='error')
     elif User.query.filter_by(email = email).first() is not None:
@@ -59,8 +66,7 @@ def signUp():
       db.session.add(new_user)
       db.session.commit()
       login_user(new_user, remember=True)
-      flash('Account created!', category='success')
       return redirect(url_for('views.index'))
   return render_template("signUp.html",
     isLoggedIn = current_user.is_authenticated,
-    isAdmin = dataManager.isAdmin(current_user))
+    isAdmin = isAdmin(current_user))

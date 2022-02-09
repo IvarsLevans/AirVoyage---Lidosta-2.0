@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/Departures&Arrivals.css">
+    <link rel="stylesheet" href="../static/css/arrivalsDepartures.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <script src="https://kit.fontawesome.com/dc55c286ac.js" crossorigin="anonymous"></script>
+    <title>AirVoyage</title>
+</head>
+
+<body>
+  {% include "header.html" %}
+
+  <section class="main">
+    <div id="Departures" class="tabcontent">
+      <table class="airport-table" data-mode='arrival'>
+        <thead>
+          <th>
+            <div class="dropdown">
+              <select id="airportSelect">
+                {% for airport in airports %}
+                <option value="{{airport}}">{{airport}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </th>
+          <th>
+            <div>
+              <button class="tablinks" id="arrivalButton">
+                <i class="fas fa-plane-arrival"></i> Arrivals
+              </button>
+            </div>
+          </th>
+          <th>
+            <div>
+              <button class="tablinks" id="departureButton">
+                <i class="fas fa-plane-departure"></i> Departures
+              </button>
+            </div>
+          </th>
+          <th></th>
+        </thead>
+
+        <!--TABLE HEADER-->
+        <thead>
+            <th>Date</th>
+            <th>Scheduled</th>
+            <th>Flight number</th>
+            <th>To</th>
+        </thead>
+        <!--TABLE BODY-->
+        <tbody>
+          {% for departureDate, departureTime, arrivalDate, arrivalTime, from, to, number in flights %}
+          <tr>
+            <td data-arrivalDate='{{arrivalDate}}' data-departureDate='{{departureDate}}'></td>
+            <td data-arrivalTime='{{arrivalTime}}' data-departureTime='{{departureTime}}'></td>
+            <td>{{number}}</td>
+            <td data-to='{{to}}' data-from='{{from}}'></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  {% include "footer.html" %}
+  <script src="{{ url_for('static', filename='js/arrivalsDepartures.js') }}"></script>
+</body>
+
+</html>

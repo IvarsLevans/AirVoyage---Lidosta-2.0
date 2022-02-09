@@ -1,169 +1,119 @@
-tables = [document.getElementById("airports"), document.getElementById("airplanes"), document.getElementById("flights")]
-for (let i = 0; i < tables.length; i++){
-  tables[i].addEventListener("click", (e) => {addDelete(e)});
-}
-function addDelete(e){
-  button = e.target;
-  if(button.classList.contains('delete')) {
-    row = e.target.parentElement.parentElement
-    key = row.getElementsByClassName('key')[0].getAttribute('key');
 
+isEditing = false;
+document.addEventListener('click', (e) =>{
+  button = e.target;
+  if(button.classList.contains('edit')){
+    if(isEditing){
+      alert('Already editing a row.');
+      return;
+    }
+    row = button.parentElement.parentElement;
+    row.style['display'] = 'none';
+    tbody = row.parentElement;
+    template = tbody.getElementsByClassName('editTemplate')[0].cloneNode(true);
+    template.style['display'] = 'table-row';
+    template.classList = [];
+    // -2 to ignore apply, cancel button
+    for(let i = 0; i < template.children.length - 2; i++){
+      td = template.children[i];
+      if(td.classList.contains('uneditable')){
+        td.textContent = row.children[i].textContent;
+      }
+      else{
+        input = td.children[0];
+        if(input.type == 'datetime-local'){
+          let temp = row.children[i].textContent.split(' ');
+          let dateTemp = temp[0].split('.');
+          input.value = dateTemp[2] + '-' + dateTemp[1] + '-' + dateTemp[0] + 'T' + temp[1];
+        }
+        else{
+          input.value = row.children[i].textContent;
+        }
+      }
+    }
+    tbody.insertBefore(template, row);
+    isEditing = true;
+  }
+  else if(button.classList.contains('apply')){
+    row = button.parentElement.parentElement;
     url = '/data';
     var request = new XMLHttpRequest();
     request.open('POST', url, true);
     request.onload = function() {
-      if(request.responseText === "permissionDenied"){
-        document.location.href = '../'
+      
+      if(request.responseText == "success"){
+        location.reload()
       }
       else{
-        row.parentElement.removeChild(row);
+        alert(request.responseText);
+        console.log("error" + request.responseText);
       }
     };
-
-    request.onerror = function() {
-      // request failed
+    formData = new FormData();
+    if (row.getAttribute('mode') == 'add'){
+      formData.append('action', 'addRow');
+    }
+    else{
+      formData.append('action', 'editRow');
+    }
+    formData.append('table', row.parentElement.parentElement.getAttribute('name'));
+    let length = 0;
+    // -2 to ignore apply, cancel button
+    for(let i = 0; i < row.children.length - 2; i++){
+      if(!row.children[i].classList.contains('uneditable')){
+        formData.append('fieldName' + (i).toString(), row.children[i].getAttribute('fieldName'));
+        formData.append('value' + i.toString(), row.children[i].children[0].value);
+        length += 1;
+      }
+      if(row.children[i].classList.contains('key')){
+        formData.append('key', row.nextElementSibling.children[i].textContent);
+        formData.append('keyFieldName', row.children[i].getAttribute('fieldName'));
+      }
+    }
+    formData.append('fieldCount', length);
+    request.send(formData);
+  }
+  else if (button.classList.contains('addRow')){
+    if(isEditing){
+      alert('Already editing a row.');
+      return;
+    }
+    let tbody = button.previousElementSibling.children[0];
+    template = tbody.getElementsByClassName('editTemplate')[0].cloneNode(true);
+    template.style['display'] = 'table-row';
+    template.setAttribute('mode', 'add')
+    tbody.insertBefore(template, tbody.getElementsByClassName('editTemplate')[0])
+    isEditing = true;
+  }
+  else if (button.classList.contains('delete')){
+    row = button.parentElement.parentElement;
+    table = row.parentElement.parentElement;
+    key = '';
+    template = row.parentElement.getElementsByClassName('editTemplate')[0];
+    for(let i = 0; i < template.children.length - 2; i++){
+      if(template.children[i].classList.contains('key')){
+        key = row.children[i].textContent;
+      }
+    }
+    url = '/data';
+    var request = new XMLHttpRequest();
+    request.open('POST', url, true);
+    request.onload = function() {
+      
+      if(request.responseText == "success"){
+        location.reload()
+      }
+      else{
+        console.log("error" + request.responseText + '.');
+      }
     };
     formData = new FormData();
     formData.append('action', 'delete');
-    formData.append('table', row.parentElement.parentElement.id);
+    formData.append('table', table.getAttribute('name'));
     formData.append('key', key);
     request.send(formData);
   }
-  else if (button.classList.contains('finish')){
-    //table, key, fieldName, value  
-    
-    row = e.target.parentElement.parentElement
-    key = row.getElementsByClassName('key')[0].getAttribute('key');
-
-    url = '/data';
-    var request = new XMLHttpRequest();
-    request.open('POST', url, true);
-    request.onload = function() {
-      if(request.responseText == 'success'){
-        if(button.textContent == 'Enable'){
-          button.textContent = 'Disable';
-        }
-        else{
-          button.textContent = 'Enable';
-        }
-      }
-    };
-
-    request.onerror = function() {
-      // request failed
-    };
-    formData = new FormData();
-    formData.append('action', 'edit');
-    formData.append('table', row.parentElement.parentElement.id);
-    formData.append('key', key);
-    formData.append('field', button.parentElement.getAttribute('value'));
-    if(button.textContent == 'Enable'){
-      formData.append('value', 'false');
-    }
-    else{
-      formData.append('value', 'true');
-    }
-    request.send(formData);
+  else if (button.classList.contains('cancel')){
+    location.reload();
   }
-}
-
-let editedFields = new FormData();
-let editedAirportsAbrriviations = '';
-function doubleClick(node) {
-  if(node.classList.contains('editable')) {
-    node.ondblclick=function() {
-
-      var val=this.innerHTML;
-      var input=document.createElement("input");
-      input.value=val;
-
-      input.onblur=function(){
-        let responseText = changeField(
-          this.parentNode,     
-          node.parentElement.parentElement.parentElement.id,
-          node.parentElement.getElementsByClassName('key')[0].getAttribute('key'),
-          node.getAttribute('value'),
-          this.value);
-        var val = this.value;
-        this.parentNode.innerHTML=val;
-      }
-      
-      this.innerHTML="";
-      this.appendChild(input);
-      input.focus();
-    }
-  }
-}
-document.querySelectorAll("table tr td").forEach(function(node) {
-  doubleClick(node)
-});
-
-function changeField(node, table, key, field, value){
-  url = '/data';
-  var request = new XMLHttpRequest();
-  request.open('POST', url, true);
-  request.onload = function() {
-    if(request.responseText != 'success'){
-      node.innerHTML = 'error'
-      node.style.color = "red";
-    }
-    else{
-      node.style.color = "black";
-      if(node.classList.contains('key')){
-        node.setAttribute('key', node.innerHTML);
-      }
-    }
-  };
-
-  request.onerror = function() {
-    // request failed
-  };
-  formData = new FormData();
-  if(key == '' && node.classList.contains('key')){
-    formData.append('action', 'add');
-  }
-  else{
-    formData.append('action', 'edit');
-  }
-  formData.append('table', table);
-  formData.append('key', key);
-  formData.append('field', field);
-  formData.append('value', value);
-  request.send(formData);
-}
-
-// document.getElementsByClassName("add")[0].addEventListener("click", (e) => {addAddButton(e)});
-// document.getElementsByClassName("add")[1].addEventListener("click", (e) => {addAddButton(e)});
-addButtons = document.getElementsByClassName("add");
-for (let i = 0; i < addButtons.length; i++){
-  addButtons[i].addEventListener("click", (e) => {addAddButton(e)});
-}
-function addAddButton(e) {
-  tbody = e.target.parentElement.parentElement.parentElement;
-  // let element = tbody.children[1].cloneNode(true);
-  let element = createRow(e.target.parentElement.parentElement.parentElement.parentElement.id)
-  element.setAttribute('value', '');
-  var children = Array.from(element.children);
-  for(let i = 0; i < children.length - 1; i++){
-    children[i].textContent = 'None';
-    doubleClick(children[i]);
-  }
-  tbody.insertBefore(element, tbody.lastChild);
-  element.getElementsByClassName('key')[0].setAttribute('key', '');
-  var targLink = element.getElementsByClassName('key')[0];
-  var clickEvent = document.createEvent ('MouseEvents');
-  clickEvent.initEvent ('dblclick', true, true);
-  targLink.dispatchEvent (clickEvent);
-}
-function createRow(tableId) {
-  if (tableId == 'airports'){
-    return document.getElementById('exampleRows').children[0].children[0].cloneNode(true);
-  }
-  else if (tableId == 'airplanes'){
-    return document.getElementById('exampleRows').children[0].children[1].cloneNode(true);
-  }
-  else if (tableId == 'flights'){
-    return document.getElementById('exampleRows').children[0].children[2].cloneNode(true);
-  }
-  return;
-}
+})

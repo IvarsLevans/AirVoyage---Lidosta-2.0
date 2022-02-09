@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/signUp.css">
+    <link rel="stylesheet" href="../static/css/data.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
     <script src="https://kit.fontawesome.com/dc55c286ac.js" crossorigin="anonymous"></script>
 
     <title>AirVoyage</title>
@@ -13,113 +15,154 @@
 
 <body>
   {% include "header.html" %}
-
-  <h1>Manage airports</h1>
-  <table id="airports">
-    <tr>
-      <th>Name</th>
-      <th>Abbreviation</th>
-      <th>Address</th>
-      <th>Airplanes</th>
-    </tr>
-    {% for airport in airports %}
-    <tr>
-      <td class="editable" value='name'>{{ airport.name }}</td>
-      <td class='key editable' value='abbreviation' key='{{airport.abbreviation}}'>{{ airport.abbreviation }}</td>
-      <td class="editable" value='address'>{{ airport.address }}</td>
-      <td class='' value='airplanes' >{{ airport.airplanes }}</td>
-      <td class='' value='incomingFlights' >{{ airport.incomingFlights }}</td>
-      <td class='' value='outgoingFlights' >{{ airport.outgoingFlights }}</td>
-      <td><button class='delete'>Del</button> </td>
-    </tr>
-    {% endfor %}
-  <td><button class='add'>Add</button> </td>
-  </table>
-
-  <h1>Manage airplanes</h1>
-  <table id="airplanes">
-    <tr>
-      <th>Id</th>
-      <th>Model</th>
-      <th>Year Of Manufacture</th>
-      <th>Seats</th>
-      <th>Airport Id</th>
-      <th>Flights</th>
-    </tr>
-    {% for airplane in airplanes %}
-    <tr>
-      <td class="key editable" value='id' key='{{airplane.id}}'>{{ airplane.id }}</td>
-      <td class='editable' value='model' >{{ airplane.model }}</td>
-      <td class="editable" value='yearOfManufacture'>{{ airplane.yearOfManufacture }}</td>
-      <td class='editable' value='model' >{{ airplane.seats }}</td>
-      <td class='editable' value='airportId' >{{ airplane.airportId }}</td>
-      <td class='' value='flights' >{{ airplane.flights }}</td>
-      <td><button class='delete'>Del</button> </td>
-    </tr>
-    {% endfor %}
-    <td><button class='add'>Add</button> </td>
-  </table>
-
-  <h1>Manage flights</h1>
-  <table id="flights">
-    <tr>
-      <th>Id</th>
-      <th>Number</th>
-      <th>Departure Date</th>
-      <th>Arrival Date</th>
-      <th>Airport From</th>
-      <th>Airport To</th>
-      <th>Airplane Id</th>
-    </tr>
-    {% for flight in flights %}
-    <tr>
-      <td class="key editable" value='id' key='{{flight.id}}'>{{ flight.id }}</td>
-      <td class='editable' value='number' >{{ flight.number }}</td>
-      <td class='editable' value='departureDate' >{{ flight.departureDate }}</td>
-      <td class='editable' value='arrivalDate' >{{ flight.arrivalDate }}</td>
-      <td class='editable' value='airportFromId' >{{ flight.airportFromId }}</td>
-      <td class='editable' value='airportToId' >{{ flight.airportToId }}</td>
-      <td class='editable' value='airplaneId' >{{ flight.airplaneId }}</td>
-      <td value='isFinished'>
-        <button class='finish'>{% if flight.isFinished %}Enable{% else %}Disable{% endif %}</button>
-      </td>
-      <td><button class='delete'>Del</button> </td>
-    </tr>
-    {% endfor %}
-  <td><button class='add'>Add</button> </td>
-  </table>
   
-  <table hidden id="exampleRows">
-    <tr>
-      <td class="editable" value='name'>None</td>
-      <td class='key editable' value='abbreviation' key=''>None</td>
-      <td class="editable" value='address'>None</td>
-      <td class='' value='airplanes' >None</td>
-      <td class='' value='incomingFlights' >None</td>
-      <td class='' value='outgoingFlights' >None</td>
-      <td><button class='delete'>Del</button> </td>
-    </tr>
-    <tr>
-      <td class="key editable" value='id' key=''>None</td>
-      <td class='editable' value='model' >None</td>
-      <td class="editable" value='yearOfManufacture'>None</td>
-      <td class='editable' value='model' >None</td>
-      <td class='editable' value='airportId' >None</td>
-      <td class='' value='flights' >None</td>
-      <td><button class='delete'>Del</button> </td>
-    </tr>
-    <tr>
-      <td class="key editable" value='id' key=''>None</td>
-      <td class='editable' value='number' >None</td>
-      <td class='editable' value='departureDate' >None</td>
-      <td class='editable' value='arrivalDate' >None</td>
-      <td class='editable' value='airportFromId' >None</td>
-      <td class='editable' value='airportToId' >None</td>
-      <td class='editable' value='airplaneId' >None</td>
-      <td value='isFinished'><button class='finish'>Enable</button> </td>
-      <td><button class='delete'>Del</button> </td>
-    </tr>
-  </table>
+  <div id="errors">
+
+  </div>
+
+  <div>
+    <h1>Manage airports</h1>
+    <table name="airports">
+      <tr>
+        <th>Name</th>
+        <th>Abbreviation</th>
+        <th>Address</th>
+        <th>Airplanes</th>
+        <th>Incoming flights</th>
+        <th>Outgoing flights</th>
+      </tr>
+      {% for airport in airports %}
+      <tr>
+        <td>{{ airport.name }}</td>
+        <td>{{ airport.abbreviation }}</td>
+        <td>{{ airport.address }}</td>
+        <td>{{ airport.airplanes }}</td>
+        <td>{{ airport.incomingFlights }}</td>
+        <td>{{ airport.outgoingFlights }}</td>
+        <td><button class='edit'>Edit</button> </td>
+        <td><button class='delete'>Del</button> </td>
+      </tr>
+      {% endfor %}
+      <tr class="editTemplate">
+        <td fieldName="name"><input type="text"></input></td>
+        <td class="key" fieldName="abbreviation"><input type="text"></input></td>
+        <td fieldName="address"><input type="text"></input></td>
+        <td class="uneditable" ></td>
+        <td class="uneditable"></td>
+        <td class="uneditable"></td>
+        <td><button class='apply'>Apply</button> </td>
+        <td><button class='cancel'>Cancel</button> </td>
+      </tr>
+    </table>
+    <button class='addRow'>Add</button>
+  </div>
+  <div>
+    <h1>Manage airplanes</h1>
+    <table name="airplanes">
+      <tr>
+        <th>Id</th>
+        <th>Model</th>
+        <th>Year Of Manufacture</th>
+        <th>Seats</th>
+        <th>Airport Id</th>
+        <th>Flights</th>
+      </tr>
+      {% for airplane in airplanes %}
+      <tr>
+        <td>{{ airplane.id }}</td>
+        <td>{{ airplane.model }}</td>
+        <td>{{ airplane.yearOfManufacture }}</td>
+        <td>{{ airplane.seats }}</td>
+        <td>{{ airplane.airportId }}</td>
+        <td>{{ airplane.flights }}</td>
+        <td><button class='edit'>Edit</button> </td>
+        <td><button class='delete'>Del</button> </td>
+      </tr>
+      {% endfor %}
+      <tr class="editTemplate">
+        <td class="key" fieldName="id"><!--<input type="text"></input>--></td>
+        <td fieldName="model"><input type="text"></input></td>
+        <td fieldName="yearOfManufacture"><input type="text"></input></td>
+        <td fieldName="seats"><input type="text"></input></td>
+        <td fieldName="airportId">
+          <select>
+            {% for airport in airports %}
+            <option value="{{airport.abbreviation}}">{{airport.abbreviation}}</option>
+            {% endfor %}
+          </select>
+        </td>
+        <td class='uneditable' fieldName="flights"></td>
+        <td><button class='apply'>Apply</button> </td>
+        <td><button class='cancel'>Cancel</button> </td>
+      </tr>
+    </table>
+    <button class='addRow'>Add</button>
+  </div>
+  <div>
+    <h1>Manage flights</h1>
+    <table name="flights">
+      <tr>
+        <th>Id</th>
+        <th>Number</th>
+        <th>Departure Date</th>
+        <th>Arrival Date</th>
+        <th>Airport From</th>
+        <th>Airport To</th>
+        <th>Airplane Id</th>
+        <th>Is finished</th>
+      </tr>
+      {% for flight in flights %}
+      <tr>
+        <td>{{ flight.id }}</td>
+        <td>{{ flight.number }}</td>
+        <td>{{ flight.departureDate.strftime('%d.%m.%Y %H:%M') }}</td>
+        <td>{{ flight.arrivalDate.strftime('%d.%m.%Y %H:%M') }}</td>
+        <td>{{ flight.airportFromId }}</td>
+        <td>{{ flight.airportToId }}</td>
+        <td>{{ flight.airplaneId }}</td>
+        <td>{% if flight.isFinished %}True{% else %}False{%endif%}</td>
+        <td><button class='edit'>Edit</button> </td>
+        <td><button class='delete'>Del</button> </td>
+      </tr>
+      {% endfor %}
+      <tr class="editTemplate">
+        <td class="key" fieldName="id"><input type="text"></input></td>
+        <td fieldName="number"><input type="text"></input></td>
+        <td fieldName="departureDate"><input type="datetime-local"></input></td>
+        <td fieldName="arrivalDate"><input type="datetime-local"></input></td>
+        <td fieldName="airportFromId">
+          <select>
+            {% for airport in airports %}
+            <option value="{{airport.abbreviation}}">{{airport.abbreviation}}</option>
+            {% endfor %}
+          </select>
+        </td>
+        <td fieldName="airportToId">
+          <select>
+            {% for airport in airports %}
+            <option value="{{airport.abbreviation}}">{{airport.abbreviation}}</option>
+            {% endfor %}
+          </select>
+        </td>
+        <td fieldName="airplaneId">
+          <select>
+            {% for airplane in airplanes %}
+            <option value="{{airplane.id}}">{{airplane.id}}</option>
+            {% endfor %}
+          </select>
+        </td>
+        <td fieldName="isFinished">
+          <select>
+            <option value="True">True</option>
+            <option value="False">False</option>
+          </select>
+        </td>
+        <td><button class='apply'>Apply</button> </td>
+        <td><button class='cancel'>Cancel</button> </td>
+      </tr>
+    </table>
+    <button class='addRow'>Add</button>
+  </div>
 
   {% include "footer.html" %}
 

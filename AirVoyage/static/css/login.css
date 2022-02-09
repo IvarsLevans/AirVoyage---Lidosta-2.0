@@ -13,7 +13,7 @@
 }
 
 header {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -57,7 +57,7 @@ header .menu a:hover{
 /* ############################ */
 
 .main {
-    margin-top: 325px;
+    margin-top: 225px;
     margin-bottom: 225px;
     margin-left: auto;
     margin-right: auto;
@@ -130,7 +130,7 @@ button:hover {
 }
 
 /* Float cancel and signup buttons and add an equal width */
-.cancelbtn, .signupbtn {
+.cancelbtn, .login {
     float: left;
     width: 50%;
 }
@@ -144,7 +144,7 @@ button:hover {
 
 /* Change styles for cancel button and signup button on extra small screens */
 @media screen and (max-width: 300px) {
-    .cancelbtn, .signupbtn {
+    .cancelbtn, .login {
       width: 100%;
     }
 }
@@ -310,3 +310,4 @@ button:hover {
 	}
 
 }
+

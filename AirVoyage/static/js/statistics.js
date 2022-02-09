@@ -1,10 +1,33 @@
-printButtons = document.getElementsByClassName('exportCSV');
-for (let i = 0; i < printButtons.length; i++){
-  printButtons[i].addEventListener("click", (e) => {
+window.addEventListener('load', () => {
+  let today = new Date();
+  document.getElementById('monthSelector').value = today.getFullYear().toString() + '-' + (today.getMonth() + 1).toString().padStart(2, "0");
+})
+document.getElementById('monthSelector').addEventListener('change', (e)=>{
+  let input = e.target;
+  let dateParts = input.value.split('-');
+  let date = dateParts[0] + '.' + dateParts[1];
+  let rows = document.getElementsByTagName('tr');
+  for(let i = 1; i < rows.length; i++){
+    if(rows[i].children[2].innerHTML.substring(0,7) != date){
+      rows[i].classList.add('hidden');
+    }
+    else{
+      rows[i].classList.remove('hidden');
+    }
+  }
+  console.log(input.value);
+})
+
+csvButtons = document.getElementsByClassName('exportCSV');
+for (let i = 0; i < csvButtons.length; i++){
+  csvButtons[i].addEventListener("click", (e) => {
     let table = e.target.previousElementSibling;
     let data = []
     var rows = table.querySelectorAll("tr");
     for (var i = 0; i < rows.length; i++) {
+      if(rows[i].classList.contains('hidden')){
+        continue;
+      }
       var row = [], cols = rows[i].querySelectorAll("td, th");
       for (var j = 0; j < cols.length; j++) {
           row.push(cols[j].innerText);
@@ -20,9 +43,9 @@ for (let i = 0; i < printButtons.length; i++){
     });
 }
 
-printButtons = document.getElementsByClassName('exportJSON');
-for (let i = 0; i < printButtons.length; i++){
-  printButtons[i].addEventListener("click", (e) => {
+jsonButtons = document.getElementsByClassName('exportJSON');
+for (let i = 0; i < jsonButtons.length; i++){
+  jsonButtons[i].addEventListener("click", (e) => {
     let table = e.target.previousElementSibling.previousElementSibling;
     var data = [];
 
@@ -34,6 +57,9 @@ for (let i = 0; i < printButtons.length; i++){
 
     // go through cells
     for (var i=1; i<table.rows.length; i++) {
+        if(table.rows[i].classList.contains('hidden')){
+          continue;
+        }
 
         var tableRow = table.rows[i];
         var rowData = {};

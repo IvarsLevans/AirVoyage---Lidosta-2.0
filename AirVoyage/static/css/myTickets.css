@@ -7,14 +7,32 @@ table, td, th {
 }
 button{
   width: 150px;
-  margin-left: 10px;
-  display: block;
+  display: inline-block;
 }
+
 @media print{
-  body * {
+  body * :not(.printable, .printable *) {
+    display: none;
+  }
+  *{
     visibility: hidden;
   }
-  .printable, .printable *{
+  .printable table, .printable table * {
     visibility: visible;
   }
+}
+.ticket-container{
+  text-align: center;
+  margin-top: 30px;
+}
+.ticket-container h1, .ticket-container table{
+  margin: auto;
+}
+.ticket-container button{
+  margin-right: 50px;
+  margin-left: 50px;
+}
+select{
+  text-align: center;
+  width: 100%;
 }

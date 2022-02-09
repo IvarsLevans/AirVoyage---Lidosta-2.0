@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/signUp.css">
-    <link rel="stylesheet" href="../static/css/myTickets.css">
+    <link rel="stylesheet" href="../static/css/statistics.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
     <script src="https://kit.fontawesome.com/dc55c286ac.js" crossorigin="anonymous"></script>
 
     <title>AirVoyage</title>
@@ -15,6 +16,7 @@
 <body>
   {% include "header.html" %}
   <h1>Statistics</h1>
+  <input id="monthSelector" type="month">
   <table id="flights">
     <tr>
       <th>Id</th>
@@ -23,22 +25,20 @@
       <th>Arrival Date</th>
       <th>Airport From</th>
       <th>Airport To</th>
-      <th>Airplane Id</th>
       <th>Airplane model</th>
       <th>Airplane seats</th>
       <th>Filled seats</th>
     </tr>
-    {% for flight in flights %}
+    {% for flight, airplane, airportFrom, airportTo in data %}
     <tr>
       <td>{{ flight.id }}</td>
       <td>{{ flight.number }}</td>
-      <td>{{ flight.departureDate }}</td>
-      <td>{{ flight.arrivalDate }}</td>
+      <td>{{ flight.departureDate.strftime('%Y.%m.%d %H:%M') }}</td>
+      <td>{{ flight.arrivalDate.strftime('%Y.%m.%d %H:%M') }}</td>
       <td>{{ flight.airportFromId }}</td>
       <td>{{ flight.airportToId }}</td>
-      <td>{{ flight.airplaneId }}</td>
-      <td>{{ flight.airplane.model }}</td>
-      <td>{{ flight.airplane.seats }}</td>
+      <td>{{ airplane.model }}</td>
+      <td>{{ airplane.seats }}</td>
       <td>{{ flight.tickets|length }}</td>
     </tr>
     {% endfor %}
