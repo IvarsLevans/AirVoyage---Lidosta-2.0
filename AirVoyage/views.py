@@ -79,7 +79,7 @@ def myTickets():
     isLoggedIn = flask_login.current_user.is_authenticated,
     isAdmin = isAdmin(flask_login.current_user),
     user = flask_login.current_user,
-    tickets = [ticket for ticket in flask_login.current_user.tickets if not ticket.flight.isFinished])
+    tickets = [ticket for ticket in flask_login.current_user.tickets if ticket.flight and not ticket.flight.isFinished])
 
 @views.route('myTickets/<sortOrder>', methods=["GET", "POST"])
 @flask_login.login_required
@@ -93,7 +93,7 @@ def myTicketsOrdered(sortOrder):
     isLoggedIn = flask_login.current_user.is_authenticated,
     isAdmin = isAdmin(flask_login.current_user),
     user = flask_login.current_user,
-    tickets = flask_login.current_user.tickets,
+    tickets = [ticket for ticket in flask_login.current_user.tickets if ticket.flight and not ticket.flight.isFinished],
     order = sortOrder)
 def ticketSorter(e):
   return e.purchaseDate

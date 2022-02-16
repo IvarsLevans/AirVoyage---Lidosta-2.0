@@ -53,8 +53,8 @@
     {% for flight in flights %}
       {% if not flight.isFinished %}
         <tr value="{{flight.id}}">
-          <td>{{flight.airportFrom.address}}</td>
-          <td>{{flight.airportTo.address}}</td>
+          <td>{{flight.airportFrom.address}} ({{flight.airportFrom.abbreviation}})</td>
+          <td>{{flight.airportTo.address}} ({{flight.airportTo.abbreviation}})</td>
           <td>{{flight.departureDate.strftime('%Y.%m.%d %H:%M')}}</td>
           <td>{{flight.arrivalDate.strftime('%Y.%m.%d %H:%M')}}</td>
           {% if flight.id in bookedFlightIds %}

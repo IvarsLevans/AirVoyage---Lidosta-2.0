@@ -21,18 +21,19 @@ button{
     visibility: visible;
   }
 }
-.ticket-container{
+.container{
   text-align: center;
   margin-top: 30px;
 }
-.ticket-container h1, .ticket-container table{
+.container h1, .container table{
   margin: auto;
 }
-.ticket-container button{
+.container button{
   margin-right: 50px;
   margin-left: 50px;
 }
 select{
   text-align: center;
-  width: 100%;
+  width: 200px;
+  height: 50px;
 }

@@ -15,12 +15,14 @@
 
 <body>
   {% include "header.html" %}
+  <div class="container">
    <select id="order" name="order">
       <option value="newest">Newest</option>
       <option value="oldest">Oldest</option>
     </select>
+  </div>
   {% for ticket in tickets %}
-  <div class="ticket-container">
+  <div class="container">
     <h1>Ticket Nr. {{"{:09d}".format(ticket.id)}}</h1>
     <table id="{{ticket.id}}">
       <tr>
